@@ -3,6 +3,7 @@
 /.phpunit.cache
 /.phpunit.result.cache
 /coverage
+/tmp
 composer.lock
 .phpunit.cache
 .phpunit.result.cache
