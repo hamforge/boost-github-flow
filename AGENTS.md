@@ -1,4 +1,4 @@
-# Github Workflow
+# GitHub Workflow
 
 This repository is a Laravel package. Keep the package focused, idiomatic, and easy for Laravel developers to install, test, and maintain.
 
@@ -8,7 +8,7 @@ This repository is a Laravel package. Keep the package focused, idiomatic, and e
 - Keep package names, namespaces, Composer metadata, publish tags, documentation, and examples aligned with `hamforge/boost-github-workflow`.
 - Add only the files and dependencies needed for the package behavior being implemented.
 - Prefer explicit Laravel package code over helper abstractions unless the extension point is real.
-- Keep tests focused on observable package behavior through public APIs, service provider wiring, commands, routes, published resources, and documentation promises.
+- Keep tests focused on observable package behavior through distributed skills, references, metadata, and documentation promises.
 
 ## Quick Commands
 
@@ -16,13 +16,11 @@ This repository is a Laravel package. Keep the package focused, idiomatic, and e
 - Formatting check: `composer lint:check`
 - Static analysis: `composer analyse`
 - Pest tests: `composer test:unit`
-- Workbench build: `composer build`
-- Workbench server: `composer serve`
 
 ## Local Skills
 
-- `package-scaffold`: use when adding package capabilities or wiring them through the service provider, including commands, migrations, routes, config, views, translations, assets, middleware, publish tags, workbench files, and console-only behavior.
-- `package-testing`: use when adding or changing package tests with Pest 4 and Orchestra Testbench.
+- `package-scaffold`: use when reviewing package structure and confirming that guidance-only changes do not introduce runtime wiring.
+- `package-testing`: use when adding or changing Pest tests for bundled skill structure, metadata, references, identity, or distribution.
 - `package-release`: use when preparing changelog, release notes, tags, or GitHub release workflow changes.
 - `package-compatibility`: use when reviewing code, dependencies, or CI against the PHP and Laravel support matrix.
 - `package-generate-skill`: use when updating the bundled Boost skill from the package implementation, README, and examples.

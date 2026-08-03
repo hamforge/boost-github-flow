@@ -14,18 +14,10 @@
     beStrictAboutOutputDuringTests="true"
     cacheDirectory=".phpunit.cache"
     backupStaticProperties="false"
->
+    >
     <testsuites>
-        <testsuite name="Arch">
-            <file>tests/ArchTest.php</file>
-        </testsuite>
         <testsuite name="Unit">
             <directory>tests/Unit</directory>
         </testsuite>
     </testsuites>
-    <source>
-        <include>
-            <directory suffix=".php">src</directory>
-        </include>
-    </source>
 </phpunit>

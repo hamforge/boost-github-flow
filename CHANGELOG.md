@@ -1,36 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/hamforge/boost-github-workflow/compare/v1.0.0...HEAD)
+## [v1.0.1 (Unreleased)](https://github.com/hamforge/boost-github-workflow/compare/v1.0.0...main)
 
-## [v1.0.0](https://github.com/hamforge/boost-github-workflow/compare/v0.1.0...v1.0.0) - 2026-08-03
+- Correct Laravel Boost installation and package-skill discovery guidance.
+- Remove unused Laravel runtime scaffolding and dependencies from the guidance-only package.
+- Clean up documentation and the distributed package contents.
 
-### Initial release
+## [v1.0.0](https://github.com/hamforge/boost-github-workflow/releases/tag/v1.0.0) - 2026-08-03
 
-The first stable release of **hamforge/boost-github-workflow**.
-
-This package provides hamforge's opinionated GitHub workflow for Laravel Boost.
-
-#### Included Skills
-
-- `$github-workflow`
-- `$github-capture-idea`
-- `$github-create-issue`
-- `$github-plan-roadmap`
-- `$github-next-issue`
-- `$github-investigate-issue`
-- `$github-implement-issue`
-- `$github-release-review`
-
-#### Highlights
-
-- Opinionated GitHub workflow for AI-assisted Laravel development
-- GitHub CLI (`gh`) as the standard GitHub interface
-- Portable Boost skills using `SKILL.md`
-- Codex metadata through `agents/openai.yaml`
-- Structural package tests protecting the distributed skill contract
-
-Thanks to everyone who helped shape the workflow.
-
-## [v0.1.0](https://github.com/hamforge/boost-github-workflow/compare/...v0.1.0) - 202x-xx-xx
-
-Initial pre-release.
+- Introduce the hamforge GitHub workflow as focused Laravel Boost skills for idea capture, issue creation, roadmap planning, work selection, investigation, implementation, and release review.
+- Document shared conventions for issues, labels, milestones, contributions, maintenance, changelogs, and releases.

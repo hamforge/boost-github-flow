@@ -22,7 +22,7 @@ Verify `gh` is installed, confirm authentication with `gh auth status`, and reso
 1. Open milestones and their purposes; unless project guidance says otherwise, treat the earliest planned release with unfinished work as the current release.
 2. Open issues in the current release.
 3. Open issues carrying `priority:current`.
-4. Complete issue bodies, dependencies, investigations, and obvious blockers.
+4. Read complete issue bodies and dependency details, including investigations and obvious blockers.
 5. Relevant open pull requests and their state.
 
 If `priority:current` is missing from the repository, report the missing hamforge workflow label rather than inventing another priority system.

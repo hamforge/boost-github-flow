@@ -4,15 +4,15 @@
 
 <p align="center">
     <a href="https://packagist.org/packages/hamforge/boost-github-workflow"><img src="https://img.shields.io/packagist/v/hamforge/boost-github-workflow.svg?style=flat-square" alt="Packagist"></a>
-    <a href="https://packagist.org/packages/hamforge/boost-github-workflow"><img src="https://img.shields.io/packagist/php-v/hamforge/boost-github-workflow.svg?style=flat-square" alt="PHP from Packagist"></a>
-    <a href="https://packagist.org/packages/hamforge/boost-github-workflow"><img src="https://badge.laravel.cloud/badge/hamforge/boost-github-workflow?style=flat" alt="Laravel versions"></a>
     <a href="https://github.com/hamforge/boost-github-workflow/actions"><img alt="GitHub Workflow Status (main)" src="https://img.shields.io/github/actions/workflow/status/hamforge/boost-github-workflow/tests.yml?branch=main&label=Tests&style=flat-square"></a>
     <a href="https://packagist.org/packages/hamforge/boost-github-workflow"><img src="https://img.shields.io/packagist/dt/hamforge/boost-github-workflow.svg?style=flat-square" alt="Total Downloads"></a>
 </p>
 
-hamforge's opinionated GitHub workflow for AI-assisted Laravel development through Laravel Boost skills.
+hamforge's opinionated GitHub workflow for AI-assisted Laravel development, distributed as Laravel Boost skills.
 
 It gives coding agents a consistent way to capture ideas, plan work, investigate and implement issues, and review releases without turning the package into a runtime GitHub integration.
+
+Built and maintained independently by [hamforge](https://hamforge.dev) in Australia.
 
 ## What You Get
 
@@ -20,17 +20,26 @@ After installation, supported AI coding assistants gain access to the bundled Gi
 
 ## Installation
 
-The package provides development-time workflow guidance rather than runtime application behavior, so install it as a development dependency:
+The package provides development-time workflow guidance rather than runtime application behavior, so install it in an existing Laravel Boost application as a development dependency:
 
 ```bash
 composer require --dev hamforge/boost-github-workflow
 ```
 
-Then update Laravel Boost to make the GitHub workflow available to supported AI coding assistants:
+Then ask Laravel Boost to discover the newly installed package and make its skills available to your configured AI coding assistants:
 
 ```bash
-php artisan boost:update
+php artisan boost:update --discover
 ```
+
+If Laravel Boost is not configured yet, install it and run its initial setup instead:
+
+```bash
+composer require laravel/boost --dev
+php artisan boost:install
+```
+
+After the skills have been installed, normal `php artisan boost:update` runs keep the existing Boost resources current.
 
 ## Prerequisites
 

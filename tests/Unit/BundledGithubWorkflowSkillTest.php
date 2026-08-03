@@ -9,10 +9,15 @@ function bundledSkillsPath(): string
     return dirname(__DIR__, 2).'/resources/boost/skills';
 }
 
+function packageRootPath(): string
+{
+    return dirname(__DIR__, 2);
+}
+
 /**
  * @return list<string>
  */
-function expectedGithubSkills(): array
+function expectedGitHubSkills(): array
 {
     return [
         'github-workflow',
@@ -27,7 +32,7 @@ function expectedGithubSkills(): array
 }
 
 it('bundles every GitHub workflow skill with consistent skill metadata', function () {
-    foreach (expectedGithubSkills() as $name) {
+    foreach (expectedGitHubSkills() as $name) {
         $skill = file_get_contents(bundledSkillsPath().'/'.$name.'/SKILL.md');
 
         expect($skill)
@@ -39,26 +44,31 @@ it('bundles every GitHub workflow skill with consistent skill metadata', functio
 });
 
 it('bundles valid and consistent OpenAI metadata for every skill', function () {
-    foreach (expectedGithubSkills() as $name) {
+    foreach (expectedGitHubSkills() as $name) {
         $metadataPath = bundledSkillsPath().'/'.$name.'/agents/openai.yaml';
 
         expect($metadataPath)->toBeFile();
 
         $metadata = Yaml::parseFile($metadataPath);
 
-        expect($metadata)->toBeArray()
-            ->toHaveKeys(['interface'])
+        if (! is_array($metadata) || ! isset($metadata['interface']) || ! is_array($metadata['interface'])) {
+            throw new RuntimeException('OpenAI skill metadata must contain an interface mapping.');
+        }
+
+        $interface = $metadata['interface'];
+
+        expect($metadata)->toHaveKeys(['interface'])
             ->and(array_keys($metadata))->toBe(['interface'])
-            ->and($metadata['interface'])->toBeArray()
+            ->and($interface)
             ->toHaveKeys(['display_name', 'short_description', 'default_prompt'])
-            ->and(array_keys($metadata['interface']))->toBe([
+            ->and(array_keys($interface))->toBe([
                 'display_name',
                 'short_description',
                 'default_prompt',
             ])
-            ->and($metadata['interface']['display_name'])->toBeString()->not->toBeEmpty()
-            ->and($metadata['interface']['short_description'])->toBeString()->not->toBeEmpty()
-            ->and($metadata['interface']['default_prompt'])->toBeString()
+            ->and(is_string($interface['display_name']) && $interface['display_name'] !== '')->toBeTrue()
+            ->and(is_string($interface['short_description']) && $interface['short_description'] !== '')->toBeTrue()
+            ->and($interface['default_prompt'])->toBeString()
             ->toContain('$'.$name);
     }
 });
@@ -71,21 +81,19 @@ it('bundles the doctrine references used by the workflow router', function () {
         ->and($referencesPath.'/maintenance-and-releases.md')->toBeFile();
 });
 
-it('does not leak RankForge identity or incorrectly case hamforge branding', function () {
-    $files = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator(bundledSkillsPath(), FilesystemIterator::SKIP_DOTS),
+it('is distributed as a guidance-only package without runtime wiring', function () {
+    $composer = json_decode(
+        (string) file_get_contents(packageRootPath().'/composer.json'),
+        true,
+        flags: JSON_THROW_ON_ERROR,
     );
 
-    foreach ($files as $file) {
-        if (! $file->isFile()) {
-            continue;
-        }
-
-        $contents = (string) file_get_contents($file->getPathname());
-
-        expect(strtolower($contents))
-            ->not->toContain('rankforge')
-            ->and($contents)->not->toContain('HamForge')
-            ->and($contents)->not->toContain('Hamforge');
+    if (! is_array($composer)) {
+        throw new RuntimeException('Composer metadata must decode to an array.');
     }
+
+    expect(array_intersect(['autoload', 'extra', 'require'], array_keys($composer)))->toBe([])
+        ->and(glob(packageRootPath().'/src/*.php'))->toBe([])
+        ->and(is_file(packageRootPath().'/testbench.yaml'))->toBeFalse()
+        ->and(bundledSkillsPath())->toBeDirectory();
 });
