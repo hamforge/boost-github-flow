@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub Capture Idea"
+  short_description: "Save an idea to the Parking Lot"
+  default_prompt: "Use $github-capture-idea to save this future idea without starting implementation."

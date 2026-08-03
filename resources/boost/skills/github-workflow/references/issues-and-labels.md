@@ -1,36 +1,31 @@
 # Issues and Labels
 
-Use this reference for issue creation, issue implementation, planning state, and labels.
+## Workflow State
 
-## Before Writing
+- Issues represent planned work; they do not authorize implementation.
+- Pull requests represent reviewed changes.
+- Milestones are the default representation of planned releases when project guidance does not say otherwise.
+- Changelogs record shipped outcomes, not live planning.
+- `priority:current` identifies the immediate working set.
+- `status:parking-lot` identifies unscheduled ideas. Parking Lot issues normally have no milestone and must not also carry `priority:current`.
 
-- Confirm the target repository.
-- Inspect live GitHub state when access is available instead of relying on stale or assumed issue and label information.
-- Search open and closed issues for duplicates or substantial overlap.
-- Inspect relevant repository documentation, current behavior, and existing planning conventions.
-- Prefer updating or referencing an existing issue when it already represents the work.
+These are hamforge defaults. Explicit project workflow instructions override them. Repository discovery supplies contextual facts; it does not reinvent the workflow.
 
 ## Issue Scope
 
-- Give an issue one clear outcome that can normally become one coherent pull request.
-- State the context, scope, acceptance criteria, exclusions, dependencies, and verification when those details are known and useful.
-- Keep future ideas lightweight. Do not invent implementation details merely to make an issue look complete.
-- Split broad requests when the parts can be delivered, reviewed, or sequenced independently.
-- Verify blocking dependencies before implementation.
-- Treat an issue as planned work, not automatic implementation authorization.
+- Search open and closed issues before creating work.
+- Prefer one issue mapping to one coherent, reviewable change and one pull request.
+- Actionable issues normally describe Goal, Context, Scope, Acceptance Criteria, Out of Scope, Dependencies, and Verification.
+- Parking Lot ideas stay lightweight until promoted.
+- Verify dependencies before implementation and stop on unresolved blockers.
+- Report adjacent discoveries rather than silently expanding scope or creating follow-up issues.
 
 ## Labels and Planning
 
-- Reuse existing labels and follow their observed meanings.
-- Apply only labels supported by the issue content.
-- Do not invent a taxonomy, priority label, milestone, project board, or status workflow for a single task.
-- If no existing label fits, omit it and report the gap.
-- Require explicit authorization before creating or modifying issues, labels, assignments, priorities, milestones, projects, or issue state.
-- Keep product direction and durable technical decisions in their canonical repository documentation; keep changing work state in GitHub.
+- Use `priority:current` and `status:parking-lot` with the meanings above.
+- If either required label is missing, report it; do not silently substitute another label.
+- Reuse the repository's existing taxonomy for other labels such as bug, enhancement, documentation, dependencies, maintenance, or area labels.
+- Prefer an existing appropriate milestone and existing Parking Lot issue over creating duplicates.
+- Do not invent release dates or a broad label taxonomy.
 
-## Implementation Boundaries
-
-- Read the complete issue before editing.
-- Stay within its scope, acceptance criteria, exclusions, dependencies, and verification requirements.
-- Report adjacent findings without silently fixing them or creating follow-up issues.
-- Do not automatically close the issue after implementation; closure may depend on review or merge.
+Meaningful GitHub mutations require authorization. Explicit invocation of a task skill authorizes the action that skill describes, but never adjacent actions.

@@ -10,6 +10,7 @@ Use this reference for changelogs, Dependabot, releases, versioning, repository 
 - Do not use the changelog as a backlog, commit transcript, or duplicate issue tracker.
 - Avoid changelog entries for changes the repository intentionally excludes, such as internal maintenance, unless its convention says otherwise.
 - Keep wording factual and useful to package consumers.
+- Treat GitHub issues and milestones as live planning and the detected project changelog as shipped history; do not require a particular changelog path.
 
 ## Dependabot Pull Requests
 
@@ -27,6 +28,8 @@ Use this reference for changelogs, Dependabot, releases, versioning, repository 
 - Use one source of truth for release notes and avoid duplicating generated content manually.
 - Never create a tag, GitHub release, or published package without explicit authorization.
 - After release, verify the release and package metadata rather than assuming automation succeeded.
+- Use milestones as the default representation of planned releases when project instructions do not define another model.
+- Prefer existing appropriate milestones and never invent a release date.
 
 ## Repository Hygiene
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub Implement Issue"
+  short_description: "Implement one GitHub issue"
+  default_prompt: "Use $github-implement-issue to implement GitHub issue #123 within its documented scope."

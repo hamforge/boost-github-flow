@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub Plan Roadmap"
+  short_description: "Propose or apply roadmap changes"
+  default_prompt: "Use $github-plan-roadmap to propose how this larger idea should fit the GitHub roadmap."

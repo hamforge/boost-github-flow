@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub Workflow"
+  short_description: "Explain and route hamforge GitHub workflows"
+  default_prompt: "Use $github-workflow to explain the hamforge GitHub workflow and recommend the appropriate next skill."
