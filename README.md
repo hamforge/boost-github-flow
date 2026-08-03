@@ -10,34 +10,59 @@
     <a href="https://packagist.org/packages/hamforge/boost-github-workflow"><img src="https://img.shields.io/packagist/dt/hamforge/boost-github-workflow.svg?style=flat-square" alt="Total Downloads"></a>
 </p>
 
-Laravel Boost guidance for making small, consistent GitHub workflow decisions during Laravel development.
+hamforge's opinionated GitHub workflow for AI-assisted Laravel development through Laravel Boost skills.
+
+It gives coding agents a consistent way to capture ideas, plan work, investigate and implement issues, and review releases without turning the package into a runtime GitHub integration.
+
+## What You Get
+
+After installation, supported AI coding assistants gain access to the bundled GitHub workflow for capturing ideas, planning work, selecting and implementing issues, and reviewing release readiness.
 
 ## Installation
 
-You can install the package via Composer:
+The package provides development-time workflow guidance rather than runtime application behavior, so install it as a development dependency:
 
 ```bash
-composer require hamforge/boost-github-workflow
+composer require --dev hamforge/boost-github-workflow
 ```
 
-After installation, refresh Laravel Boost so it discovers the package skill:
+Then update Laravel Boost to make the GitHub workflow available to supported AI coding assistants:
 
 ```bash
 php artisan boost:update
 ```
 
-## Usage
+## Prerequisites
 
-The package provides the `github-workflow` skill. It helps AI coding agents decide how to work with:
+GitHub-interacting skills use [GitHub CLI](https://cli.github.com/) as their standard interface. Install `gh` and authenticate it before use:
 
-- branches, commits, pull requests, and checks
-- issues, labels, and implementation scope
-- changelogs, Dependabot pull requests, releases, and versioning
-- repository hygiene and GitHub Actions
+```bash
+gh auth login
+```
 
-The guidance is intentionally convention-driven. It inspects and follows an application's existing GitHub conventions before proposing new labels, automation, branch policies, or release machinery.
+## Conventions
 
-Use the skill for GitHub-specific workflow decisions. Continue to use Laravel Boost and your application's own guidance for Laravel implementation, testing, architecture, and product rules.
+By default, the package assumes the following workflow conventions:
+
+- `priority:current` for the immediate working set
+- `status:parking-lot` for unscheduled ideas
+- milestones as the default representation of planned releases
+- issues for planned work, pull requests for reviewed changes, and changelogs for shipped outcomes
+
+Explicit project-specific workflow instructions may override these hamforge defaults.
+
+## Skills
+
+| Skill | Purpose |
+| --- | --- |
+| `$github-workflow` | Explain the workflow and route to a focused skill |
+| `$github-capture-idea` | Capture an unscheduled idea |
+| `$github-create-issue` | Create one scoped issue |
+| `$github-plan-roadmap` | Plan larger or multi-issue work |
+| `$github-next-issue` | Recommend exactly one next issue |
+| `$github-investigate-issue` | Investigate an issue before implementation |
+| `$github-implement-issue` | Implement one selected issue |
+| `$github-release-review` | Review release readiness without changing state |
 
 ## Changelog
 

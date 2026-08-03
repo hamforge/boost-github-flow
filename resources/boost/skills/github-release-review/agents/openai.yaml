@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub Release Review"
+  short_description: "Review GitHub release readiness"
+  default_prompt: "Use $github-release-review to assess the current release without making changes."

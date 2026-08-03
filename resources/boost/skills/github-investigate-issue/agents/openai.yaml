@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub Investigate Issue"
+  short_description: "Investigate a GitHub issue"
+  default_prompt: "Use $github-investigate-issue to investigate GitHub issue #123 without implementing it."

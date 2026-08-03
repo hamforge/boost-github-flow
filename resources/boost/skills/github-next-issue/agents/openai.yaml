@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub Next Issue"
+  short_description: "Recommend the next GitHub issue"
+  default_prompt: "Use $github-next-issue to recommend exactly one issue to work on next without making changes."

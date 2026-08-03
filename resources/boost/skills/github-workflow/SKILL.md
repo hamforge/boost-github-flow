@@ -1,10 +1,9 @@
 ---
 name: github-workflow
 description: >
-  Apply a small, repository-aware GitHub workflow while developing Laravel
-  applications. Use for branches, commits, pull requests, issues, labels,
-  changelogs, Dependabot, releases, versioning, repository hygiene, and
-  deciding whether GitHub Actions are justified.
+  Explain and route hamforge's GitHub-native idea, roadmap, issue,
+  implementation, and release workflows without changing state. Use when the
+  appropriate focused GitHub skill is unclear or when returning to a project.
 license: MIT
 metadata:
   author: hamforge
@@ -12,68 +11,102 @@ metadata:
 
 # GitHub Workflow
 
-Use this skill for GitHub-specific workflow decisions during Laravel development.
-Use Laravel Boost and project guidance for implementation, architecture, testing, and product rules.
+This is the read-only manual and router for hamforge's GitHub workflow. Explicit project instructions override these defaults.
 
-## Primary Goal
+Do not change files or GitHub state. Inspect repository guidance and live GitHub state with authenticated `gh` only when useful for routing.
 
-- make the smallest GitHub change that supports the requested development work
-- follow repository conventions before introducing new workflow policy
-- keep planning, implementation, review, and release state distinct
+## Workflow Model
 
-## Workflow
+```text
+Milestone (planned release)
+    -> Issue (planned work)
+    -> Implementation
+    -> Pull request (reviewed change)
+    -> Merge
+    -> Changelog (shipped outcome)
+```
 
-### 1. Inspect repository context
+- `priority:current` identifies current work candidates.
+- `status:parking-lot` identifies unscheduled ideas; these normally have no milestone and never also carry `priority:current`.
+- issue creation, idea capture, investigation, and work selection do not authorize implementation.
 
-- read repository instructions and inspect available conventions before introducing or recommending workflow policy
-- inspect relevant files under `.github/`, including workflows, issue templates, pull request templates, and Dependabot configuration when present
-- inspect `CONTRIBUTING.md`, `SECURITY.md`, existing labels, and release or versioning conventions when available
-- inspect the current branch, working tree, and relevant issues or pull requests
-- treat repository-specific instructions as authoritative
-- inspect live GitHub state when access is available instead of assuming that labels, issues, pull requests, releases, or repository settings are current
-- use any suitable available GitHub access mechanism; this skill does not require a particular CLI or connector
+## Choose the Workflow
 
-### 2. Classify the task
+### I have a loose idea
 
-- decide whether the request is read-only inspection, planning, implementation, review, or release work
-- do not treat issue creation, issue assignment, or roadmap placement as authorization to implement
-- treat normal local mechanics, such as creating an appropriate working branch, as part of an authorized implementation workflow when repository conventions support them
-- require explicit authorization before meaningful remote mutations, including creating or modifying issues, pull requests, labels, releases, milestones, assignments, merges, repository settings, or published artifacts
-- keep unrelated discoveries outside the current scope and report them separately
+Use `$github-capture-idea` to save it in the Parking Lot without scheduling or implementing it.
 
-### 3. Read the relevant guidance
+### I have concrete work to capture
 
-- read `references/contributions.md` for branches, commits, pull requests, and checks
-- read `references/issues-and-labels.md` for issues, scope, and labels
-- read `references/maintenance-and-releases.md` for changelogs, Dependabot, releases, hygiene, and GitHub Actions
-- read only the references needed for the task
+Use `$github-create-issue` to check for duplicates and create one scoped, actionable issue. Issue creation does not start implementation.
 
-### 4. Execute and verify
+### I need to plan several related issues
 
-- prefer one focused unit of work that is easy to review and revert
-- use existing repository scripts and required checks
-- report what changed, verification performed, and any genuine remaining risk
-- close issues, merge pull requests, tag releases, or publish artifacts only when explicitly authorized
+Use `$github-plan-roadmap`. Its first pass proposes issue and milestone changes without mutating GitHub; an approved apply phase performs only the agreed changes.
 
-## Rules, References, and Templates
+### I want to know what to work on next
 
-Read before executing:
+Use `$github-next-issue` to inspect current priorities, dependencies, blockers, and pull requests, then recommend exactly one issue.
+
+### I need to investigate an issue
+
+Use `$github-investigate-issue` for a numbered issue with unresolved behavior, architecture, risk, or decisions. Investigation does not implement code.
+
+### I am ready to implement an issue
+
+Use `$github-implement-issue` for one understood, unblocked numbered issue. It implements only that scope and does not create a pull request or close the issue by default.
+
+### I want to review release readiness
+
+Use `$github-release-review` for a read-only assessment of scope, work, checks, release notes, compatibility, and risks.
+
+## Routing Table
+
+| Intent | Skill |
+| --- | --- |
+| Save a loose, unscheduled idea | `$github-capture-idea` |
+| Create one actionable issue | `$github-create-issue` |
+| Plan a larger or multi-issue direction | `$github-plan-roadmap` |
+| Recommend what to work on next | `$github-next-issue` |
+| Investigate a numbered issue | `$github-investigate-issue` |
+| Implement an understood numbered issue | `$github-implement-issue` |
+| Assess release readiness | `$github-release-review` |
+
+## Quick Reference
+
+| Skill | GitHub writes | Code writes | Additional approval required | Purpose |
+| --- | --- | --- | --- | --- |
+| `$github-workflow` | No | No | Not applicable | Explain and route the workflow |
+| `$github-capture-idea` | Creates one issue | No | No; invocation authorizes capture | Save an unscheduled idea |
+| `$github-create-issue` | Creates one issue | No | No; invocation authorizes creation | Create scoped actionable work |
+| `$github-plan-roadmap` | Apply phase only | No | Yes; approve the proposal first | Plan related roadmap work |
+| `$github-next-issue` | No | No | Not applicable | Recommend exactly one next issue |
+| `$github-investigate-issue` | No | No | Not applicable | Investigate without implementation |
+| `$github-implement-issue` | No by default | Yes | No; invocation authorizes scoped implementation | Implement one issue |
+| `$github-release-review` | No | No | Not applicable | Assess release readiness |
+
+Do not imply every issue needs investigation. Use it for unclear behavior, meaningful risk, architecture choices, permissions, external integrations, infrastructure, or substantial data changes.
+
+When the request sits between workflows, explain the distinction and recommend exactly one next skill. Do not invoke that skill automatically. End with an exact copyable invocation.
+
+## GitHub Access
+
+Focused skills that need live GitHub state use GitHub CLI as the standard interface. They verify `gh` availability and authentication, then resolve the repository from the working checkout with `gh repo view`; no repository name is hard-coded.
+
+If `gh` is unavailable, unauthenticated, or cannot access the repository, report the prerequisite without switching interfaces. Continue only when the workflow permits local-only work.
+
+## References
+
+Read only when the routing question needs more doctrine:
 
 - `references/contributions.md`
 - `references/issues-and-labels.md`
 - `references/maintenance-and-releases.md`
 
-## Examples
-
-- a bug fix gets a concise branch, a focused commit, and a pull request that explains behavior and verification
-- a requested issue is checked for duplicates, scoped around one outcome, and labelled using the repository's existing labels
-- a Dependabot pull request is reviewed from its manifest and lockfile changes, compatibility impact, and passing checks
-- a release updates durable release notes, verifies the intended version, and avoids unrelated workflow changes
-
 ## Anti-patterns
 
-- inventing branch prefixes, label taxonomies, milestones, or release processes without repository evidence
-- creating an issue and then implementing it without implementation authorization
-- bundling unrelated changes into one issue, commit, or pull request
-- adding GitHub Actions for tasks that are simpler to run locally or are not merge or release gates
-- duplicating Laravel development guidance already supplied by Laravel Boost
+- running another workflow instead of routing to it
+- treating a selected or created issue as implementation authorization
+- inventing an alternate label taxonomy when a hamforge workflow label is missing
+- hard-coding a repository, changelog path, product-document path, or release date
+- silently expanding one authorized action into another
