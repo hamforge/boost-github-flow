@@ -10,3 +10,5 @@ composer.lock
 .DS_Store
 .idea
 .vscode
+/*.tar
+/*.zip

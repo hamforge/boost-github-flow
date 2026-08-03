@@ -1,6 +1,6 @@
 ---
 name: package-testing
-description: "Use this skill when writing, editing, fixing, or reviewing package tests with Pest 4 and Orchestra Testbench, including TDD, feature tests, unit tests, type coverage, arch tests, workbench behavior, commands, routes, config, migrations, and publishable resources."
+description: "Use this skill when writing, editing, fixing, or reviewing Pest tests for bundled skill structure, metadata, references, identity, or distribution."
 license: MIT
 metadata:
   author: laravel
@@ -10,34 +10,29 @@ metadata:
 
 ## Primary Goal
 
-Prove package behavior with Pest 4, Orchestra Testbench, and the local `tests/TestCase.php` setup before or alongside implementation.
+Prove the structure, metadata, references, and distribution promises of the bundled Laravel Boost skills with Pest 4.
 
 ## Workflow
 
-1. Start with TDD: write the smallest failing package test for the requested behavior, then implement the smallest change that makes it pass.
-2. Cover happy-path, unhappy-path, and edge-case behavior when the feature has meaningful failure modes.
-3. Prefer focused feature tests for package integration behavior and arch tests for broad constraints.
-4. Use `composer test:unit -- --filter ...` while iterating, `composer test:types` when type-sensitive tests or code changed, and `composer test` before finishing.
-5. Keep real package tests in the suite and remove only throwaway tests that were explicitly created for local scaffolding experiments.
+1. Start with the smallest failing test for a meaningful skill or distribution promise, then implement the smallest change that makes it pass.
+2. Validate skill names, front matter, agent metadata, referenced files, package identity, and guidance-only packaging where relevant.
+3. Prefer focused unit tests over booting a Laravel application; the package has no runtime behavior.
+4. Use `composer test:unit -- --filter ...` while iterating and `composer test` before finishing.
 
 ## References
 
-- `tests/TestCase.php`
-- `tests/Pest.php`
-- `tests/Feature/`
 - `tests/Unit/`
-- `tests/ArchTest.php`
+- `resources/boost/skills/`
+- `composer.json`
 - `composer.json` scripts
 
 ## Examples
 
-- Test config merge and config override by asserting default package config, then overriding the host config value in the Testbench app.
-- Test publishable assets, migrations, views, lang files, or config by invoking vendor publish behavior and asserting the target path exists.
-- Test routes with Testbench HTTP requests, commands with Artisan assertions, migrations with a SQLite test database, and workbench behavior after `composer build` when needed.
+- Parse every `agents/openai.yaml` file and assert the expected interface keys and matching skill invocation.
+- Assert every router reference exists and Composer metadata contains no runtime autoloading or provider registration.
 
 ## Anti-Patterns
 
-- Deleting real package tests because they are inconvenient.
-- Relying only on smoke tests when behavior needs assertions.
-- Testing implementation details when observable package behavior is available.
-- Keeping throwaway scaffolding experiment tests in the package test suite.
+- Booting Testbench for a package that only distributes static guidance.
+- Testing text formatting without tying it to a discovery or distribution promise.
+- Keeping throwaway scaffold tests merely to preserve a test count.

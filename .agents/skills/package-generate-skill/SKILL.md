@@ -14,9 +14,9 @@ Keep the package's bundled Boost skill accurate, concise, and focused on helping
 
 ## Workflow
 
-1. Inspect the package implementation before editing the Boost skill: service provider, facades, public classes, commands, config, routes, migrations, events, views, publish tags, and tests.
+1. Inspect the bundled skills, shared references, package metadata, and tests before editing a Boost skill.
 2. Inspect package documentation: `README.md`, contributing docs, examples, and changelog entries that describe user-facing behavior.
-3. Identify the public integration surface only. Include install, configure, publish, command, route, facade, helper, middleware, event, and testing guidance only when the package actually exposes it.
+3. Keep guidance limited to the approved GitHub workflow and do not describe application runtime APIs that the package does not expose.
 4. Update `resources/boost/skills/*/SKILL.md` with practical adoption steps, references, examples, and anti-patterns for Laravel app developers using the package.
 5. Preserve front matter, package metadata, and the Boost skill structure: description, primary goal, workflow, references, examples, and anti-patterns.
 6. Validate that the Boost skill does not describe internals as public API and does not document features that are not implemented.
@@ -32,20 +32,13 @@ Keep the package's bundled Boost skill accurate, concise, and focused on helping
 ## References
 
 - `resources/boost/skills/`
-- `src/*ServiceProvider.php`
-- `src/Facades/`
-- `src/Console/Commands/`
-- `config/*.php`
-- `routes/*.php`
-- `database/migrations/`
 - `README.md`
-- `tests/Feature/` and `tests/Unit/`
+- `tests/Unit/`
 
 ## Examples
 
-- After adding a new Artisan command, update the Boost skill with when to run it, required options, expected output, and any related config.
-- After adding config and publish tags, update the Boost skill with publish commands and the minimum config keys users need to set.
-- After adding a facade or public class, update the Boost skill with one practical integration example and the test assertion a consuming app should use.
+- After changing a shared label meaning, update every focused skill that relies on it and the central issue-and-label reference.
+- After changing installation behavior, update the README while leaving workflow skills focused on their tasks.
 
 ## Anti-Patterns
 
